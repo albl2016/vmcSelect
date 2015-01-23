@@ -1,0 +1,51 @@
+html {
+	overflow-y:auto;
+	overflow-x:auto;
+	_overflow-y:scroll;
+}
+body {
+	background:#fff;
+	font-family:"Microsoft YaHei",verdana,"\5B8B\4F53";
+	font-size:12px;
+	color:#000;
+	text-align:left;
+	word-break:break-all;
+	word-wrap:break-word;
+	display:block;
+	zoom:1;
+}
+body,div,p,h1,h2,h3,h4,h5,h6,
+dl,dt,dd,ul,ol,li,
+form,input,textarea,button,
+pre,img {
+	margin:0;
+	padding:0;
+}
+dl,dt,dd,ul,ol,li {
+	list-style:none outside none;
+}
+img,a {
+	border:0;
+}
+table {
+	margin:0 auto;
+	border:0;
+	padding:0;
+	font-size:12px;
+}
+a {
+	color:#000;
+	text-decoration:none;
+}
+a:hover {
+	color:#000;
+	text-decoration:underline;
+}
+input,textarea,select {
+	font-size:100%;
+	font-family:"Microsoft YaHei",verdana,"\5B8B\4F53";
+	color:#000;
+	outline:0;
+	resize:none;
+}
+

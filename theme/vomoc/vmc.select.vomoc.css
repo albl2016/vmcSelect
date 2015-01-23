@@ -1,0 +1,90 @@
+.vui-vomoc-select {
+	height:26px;
+	margin:0;
+	padding:0;
+	border:1px solid #CACACA;
+	border-radius:2px;
+	background-color:#F1F1F1;
+}
+.vui-vomoc-select:focus {
+	outline: #CCC auto 3px;
+}
+.vui-vomoc-select .vui-select-text {
+	height:20px;
+	margin:3px 30px 3px 10px;
+	padding:0;
+	line-height:20px;
+	font-size:14px;
+	font-weight:normal;
+	font-family:'微软雅黑','宋体';
+	color:#222;
+}
+.vui-vomoc-select .vui-select-icon {
+	top:3px;
+	right:3px;
+	height:20px;
+	width:20px;
+	margin:0;
+	padding:0;
+	background:url(select.gif) center center no-repeat;
+}
+.vui-vomoc-select-mouseover {
+	border-color:#959595;
+	background-color:#F7F7F7;
+}
+.vui-vomoc-select-mousedown {
+	border-color:#959595;
+	background-color:#E7E7E7;
+}
+
+.vui-vomoc-select-options {
+	border:1px solid #B8B8B8;
+	background:#FFF;
+	-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	-moz-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	-o-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	-ms-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+}
+.vui-vomoc-select-options .vui-select-options-wrap::-webkit-scrollbar {
+	width:6px;
+	height:6px;
+}
+.vui-vomoc-select-options .vui-select-options-wrap::-webkit-scrollbar-button {
+	width:0;
+	height:0;
+	display:none;
+}
+.vui-vomoc-select-options .vui-select-options-wrap::-webkit-scrollbar-track {
+	border-radius:10px;
+	-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0);
+}
+.vui-vomoc-select-options .vui-select-options-wrap::-webkit-scrollbar-thumb {
+	background-color:rgba(0,0,0,0.3);
+	border-radius:10px;
+	-webkit-box-shadow:inset 1px 1px 0 rgba(0,0,0,0.1);
+}
+.vui-vomoc-select-options .vui-select-options-wrap::-webkit-scrollbar-thumb:hover {
+	background-color:rgba(0,0,0,0.5);
+	border-radius:10px;
+	-webkit-box-shadow:inset 1px 1px 0 rgba(0,0,0,0.1);
+}
+.vui-vomoc-select-options .vui-select-options-wrap::-webkit-scrollbar-corner {
+	background-color:transparent;
+}
+.vui-vomoc-select-options .vui-select-item {
+	height:26px;
+	margin:0;
+	padding:0px 10px;
+	line-height:26px;
+	font-size:14px;
+	font-weight:normal;
+	font-family:'微软雅黑','宋体';
+	color:#222;
+}
+.vui-vomoc-select-options .vui-select-options-mouseover {
+	background:#F1F1F1;
+}
+.vui-vomoc-select-options .vui-select-selected {
+	background:#DDE8F6;
+}
