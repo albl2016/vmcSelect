@@ -47,6 +47,40 @@ $.fn.VSelect = function() {
 	});
 };
 /**************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**************************************************************************************************************/
 // 构造函数
 var VSelectMultiple = function(original, options) {
 	var $this = this,
@@ -71,7 +105,14 @@ var VSelectMultiple = function(original, options) {
 	if (typeof($this.elem.original.attr('height')) !== 'undefined') {
 		$this.options.height = parseInt($this.elem.original.attr('height'), 10);
 	}
-	$this.focus = false;
+
+	// 框选范围
+	$this.selectRange = [0, 0];
+	// 选择状态
+	$this.selectStatus = false;
+	// 框选状态
+	$this.rangeStatus = false;
+
 	//$this.selected = true;
 };
 /**************************************************************************************************************/
@@ -101,10 +142,14 @@ VSelectMultiple.prototype.init = function() {
 	// 键盘选择
 //	$this.keyboard();
 	// 设置模拟对象尺寸
-//	$this.setSize();
+	$this.setSize();
 	// 选中默认值
 //	$this.setSelected();
+	
+	
 };
+
+
 /**************************************************************************************************************/
 // 创建多选模拟对象
 VSelectMultiple.prototype.create = function() {
@@ -112,12 +157,6 @@ VSelectMultiple.prototype.create = function() {
 		$elem = $this.elem,
 		opts = $this.options;
 	// 创建模拟对象
-	
-	
-	
-
-
-
 	$elem.mimic = $('<div>')
 		.VDisableSelection()
 		.addClass('vui-selectMultiple vui-' + opts.theme + '-selectMultiple')
@@ -129,16 +168,6 @@ VSelectMultiple.prototype.create = function() {
 		.on('mouseleave', function(e) {
 			$(this).removeClass('vui-selectMultiple-mouseover vui-' + opts.theme + '-selectMultiple-mouseover');
 		})
-		/*
-		.on('focus', function(e){
-			$this.focus = true;
-			$(this).addClass('vui-selectMultiple-focus vui-' + opts.theme + '-selectMultiple-focus');
-		})
-		.on('blur', function(e){
-			$this.focus = false;	
-			$(this).removeClass('vui-selectMultiple-focus vui-' + opts.theme + '-selectMultiple-focus');	
-		})
-		*/
 		.insertAfter($elem.original);
 	// 创建菜单
 	$elem.options = $('<div>')
@@ -147,93 +176,44 @@ VSelectMultiple.prototype.create = function() {
 	if ($elem.original.find('option').length > 0) {
 		$elem.options.appendTo($elem.mimic);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-	
-	
-	var start,end;
-	var selectedStatus = false;
-	var selected = false;
-
-	$elem.doc.on('mouseup', function(e){
-		selectedStatus = false;
-		$this.setSelected();
-	});
+	// 框选事件
+	$elem.doc
+		.on('mouseup', function(e){
+			if($this.rangeStatus === true) {
+				$this.range(e);
+				$this.setSelected();
+			}
+			$this.rangeStatus = false;
+			
+		})
+		.on('mousemove', function(e){
+			if($this.rangeStatus === true) {
+				$this.range(e);
+			}
+		});
 
 	// 创建选项
 	$elem.original.find('option').each(function() {
 		var $option = $(this);
 		var $item = $('<div>')
 			.addClass('vui-selectMultiple-item')
-			.css('margin', 0)
 			.on('mousedown', function(e) {
+				$(this).toggleClass('vui-selectMultiple-selected');
 				e.preventDefault();
-				// 获取焦点
-				/*
-				if (false === $this.focus) {
-					$elem.mimic.focus();
-				}
-				*/
-				start = e.pageY;
-				selectedStatus = true;
-				selected = $option.prop('selected');
+				$this.selectRange[0] = e.pageY;
+				$this.rangeStatus = true;	
+				$this.selectStatus = !$option.prop('selected');
 				
-			}).on('mouseup mousemove mouseleave', function(e) {
-				if (true === selectedStatus) {
-					var end = e.pageY;
-					var a1, a2, b1, b2;
-					if (end > start) {
-						a1 = start;
-						a2 = end;
-					} else {
-						a1 = end;
-						a2 = start;
-					}
-			
-					b1 = $(this).offset().top;
-					b2 = b1 + $(this).outerHeight();
-				//	console.log('a1:' + a1 + ',a2:' + a2 + ',b1:' + b1 + ',b2:' + b2);
-					if (a1 > b2 || a2 < b1) {
-						if ($option.prop('selected') === false) {
-							$(this).removeClass('vui-selectMultiple-selected');
-						} else {
-							$(this).addClass('vui-selectMultiple-selected');
-						}
-					} else {
-						if (selected === true) {
-							$(this).removeClass('vui-selectMultiple-selected');
-						} else {
-							$(this).addClass('vui-selectMultiple-selected');
-						}
-					}
-				}
-			})	
-			/*
+			})
 			.hover(function() {
-				if (!$(this).hasClass('vui-selectMultiple-selected')) {
-					$(this).addClass('vui-selectMultiple-options-mouseover');
+				if(false === $this.rangeStatus) {
+					if (!$(this).hasClass('vui-selectMultiple-selected')) {
+						$(this).addClass('vui-selectMultiple-item-mouseover');
+					}
 				}
 			}, function() {
-				$(this).removeClass('vui-selectMultiple-options-mouseover');
+				$(this).removeClass('vui-selectMultiple-item-mouseover');
 			})
-			*/
 			.appendTo($elem.options);
 		var $itemIcon = $('<div>')
 			.addClass('vui-selectMultiple-item-icon')
@@ -243,35 +223,51 @@ VSelectMultiple.prototype.create = function() {
 			.text($option.text())
 			.appendTo($item);
 	});
+	
+	
+	
+};
+/**************************************************************************************************************/
+// 框选行为
+VSelectMultiple.prototype.range = function(e) {
+	var $this = this,
+		$elem = $this.elem,
+		a1, a2, b1, b2;
+	$this.selectRange[1] = e.pageY;
+	a1 = Math.min.apply(null, $this.selectRange);
+	a2 = Math.max.apply(null, $this.selectRange);
+	$elem.options.children('.vui-selectMultiple-item').each(function() {
+		var index = $(this).index();
+		b1 = $(this).offset().top;
+		b2 = b1 + $(this).outerHeight();
+		if (a1 > b2 || a2 < b1) {
+			if (true === $elem.original.children('option').eq(index).prop('selected')) {
+				$(this).addClass('vui-selectMultiple-selected');
+			} else {
+				$(this).removeClass('vui-selectMultiple-selected');
+			}
+		} else {
+			if ($this.selectStatus === true) {
+				$(this).addClass('vui-selectMultiple-selected');
+			} else {
+				$(this).removeClass('vui-selectMultiple-selected');
+			}
+		}
+	});
 };
 /**************************************************************************************************************/
 // 选中行为
 VSelectMultiple.prototype.setSelected = function() {
 	var $this = this,
-		$elem = $this.elem,
-		opts = $this.options;
-	
-	$elem.options.find('.vui-selectMultiple-item').each(function(){
-		if($(this).hasClass('vui-selectMultiple-selected')){
-			$elem.original.children('option:eq('+$(this).index()+')').prop('selected', true);
-		}else{
-			$elem.original.children('option:eq('+$(this).index()+')').prop('selected', false);
-		}
-	});
-		$elem.original.trigger('change');
-		/*
-	$elem.original.children('option').each(function() {
-		var $item = $(this);
-		if ($item.prop('selected') === true) {
-			$elem.options.children('.vui-selectMultiple-item:eq(' + $item.index() + ')')
-				.removeClass('vui-selectMultiple-options-mouseover')
-				.addClass('vui-selectMultiple-selected');
+		$elem = $this.elem;
+	$elem.options.find('.vui-selectMultiple-item').each(function() {
+		if ($(this).hasClass('vui-selectMultiple-selected')) {
+			$elem.original.children('option:eq(' + $(this).index() + ')').prop('selected', true);
 		} else {
-			$elem.options.children('.vui-selectMultiple-item:eq(' + $item.index() + ')')
-				.removeClass('vui-selectMultiple-selected');
+			$elem.original.children('option:eq(' + $(this).index() + ')').prop('selected', false);
 		}
 	});
-	*/
+	$elem.original.trigger('change');
 };
 /**************************************************************************************************************/
 // 设置下拉菜单尺寸，设置美化节点宽度
@@ -284,9 +280,9 @@ VSelectMultiple.prototype.setSize = function() {
 	if (optionsCount <= 0) {
 		return;
 	}
-	var optionsWidth, optionsHeight, itemHeight, mimicWidth, mimicPatch, optionsPatch, $maxItem, maxHeight, itemPatch, textPatch, scrollWidth = 0;
+	var optionsWidth, optionsHeight, itemHeight, mimicWidth, mimicPatch, optionsPatch, $firstItem, maxHeight, itemPatch, textPatch, scrollWidth = 0;
 	// 最大宽度的选项
-	$maxItem = $elem.options.children(':first');
+	$firstItem = $elem.options.children(':first');
 	// 原始菜单尺寸
 	optionsWidth = $elem.options.width();
 	optionsHeight = $elem.options.height();
@@ -306,7 +302,7 @@ VSelectMultiple.prototype.setSize = function() {
 
 
 	// 选项宽度补丁
-	//itemPatch = $maxItem.outerWidth(true) - $maxItem.width();
+	itemPatch = $firstItem.outerWidth(true) - $firstItem.width();
 	
 	// 菜单宽度
 	optionsWidth += scrollWidth;
@@ -325,6 +321,56 @@ VSelectMultiple.prototype.setSize = function() {
 };
 /**************************************************************************************************************/
 /**************************************************************************************************************/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**************************************************************************************************************/
 /**************************************************************************************************************/
 // 构造函数

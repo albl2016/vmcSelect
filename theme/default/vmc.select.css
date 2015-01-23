@@ -163,9 +163,7 @@
 }
 
 
-.vui-selectMultiple-selected {
-	background-color:#999;
-}
+
 .vui-selectMultiple-selected .vui-selectMultiple-item-icon {
 	background-image:url(checkbox_checked.gif);
 }
@@ -173,9 +171,12 @@
 	color:#FFF;
 }
 
-.vui-selectMultiple-options-mouseover {
+.vui-selectMultiple-item-mouseover {
 	background-color:#E5E5E5;
 	color:#545454;
+}
+.vui-selectMultiple-selected {
+	background-color:#999;
 }
 .vui-selectMultiple-focus .vui-selectMultiple-selected{
 	background-color: #039;
