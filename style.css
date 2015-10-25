@@ -1,0 +1,219 @@
+.vs-select {
+	float:left;
+	display:inline;
+	overflow:hidden;
+	height:26px;
+	margin:0;
+	padding:0;
+	border:1px solid #CACACA;
+	border-radius:2px;
+	background-color:#F1F1F1;
+	outline:none;
+	cursor:pointer;
+	transition:0.3s ease;
+	-o-transition:0.3s ease;
+	-webkit-transition:0.3s ease;
+}
+.vs-select .vs-title {
+	position:relative;
+	float:left;
+	display:inline;
+	height:26px;
+	margin:0;
+	padding:0;
+	border:none;
+}
+.vs-select .vs-text {
+	float:left;
+	display:inline;
+	overflow:hidden;
+	height:20px;
+	margin:3px 30px 3px 10px;
+	padding:0;
+	border:none;
+	line-height:20px;
+	white-space:nowrap;
+	color:#222;
+}
+.vs-select .vs-icon {
+	position:absolute;
+	top:3px;
+	right:3px;
+	height:20px;
+	width:20px;
+	margin:0;
+	padding:0;
+	background:url(src/arrow.gif) center center no-repeat;
+}
+.vs-option {
+	position:absolute;
+	z-index:99998;
+	overflow:hidden;
+	display:block;
+	visibility:hidden;
+	margin:0;
+	padding:0;
+	border:1px solid #959595;
+	border-radius:2px;
+	background:#FFF;
+	-webkit-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	-moz-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	-o-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	-ms-box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	box-shadow:0 1px 3px 0 rgba(0,0,0,0.2);
+	outline: none;
+}
+.vs-option .vs-scroll,
+.vs-option .vs-items {
+	float:left;
+	display:inline;
+	overflow:hidden;
+	margin:0;
+	padding:0;
+	border:none;
+	zoom:1;
+}
+.vs-option .vs-scroll::-webkit-scrollbar {
+	width:6px;
+	height:6px;
+}
+.vs-option .vs-scroll::-webkit-scrollbar-button {
+	width:0;
+	height:0;
+	display:none;
+}
+.vs-option .vs-scroll::-webkit-scrollbar-track {
+	border-radius:10px;
+	-webkit-box-shadow:inset 0 0 6px rgba(0,0,0,0);
+}
+.vs-option .vs-scroll::-webkit-scrollbar-thumb {
+	background-color:rgba(0,0,0,0.3);
+	border-radius:10px;
+	-webkit-box-shadow:inset 1px 1px 0 rgba(0,0,0,0.1);
+}
+.vs-option .vs-scroll::-webkit-scrollbar-thumb:hover {
+	background-color:rgba(0,0,0,0.5);
+	border-radius:10px;
+	-webkit-box-shadow:inset 1px 1px 0 rgba(0,0,0,0.1);
+}
+.vs-option .vs-scroll::-webkit-scrollbar-corner {
+	background-color:transparent;
+}
+.vs-option .vs-item {
+	float:left;
+	display:inline;
+	clear:both;
+	height:20px;
+	padding:2px 10px;
+	margin:0;
+	border:none;
+	line-height:20px;
+	white-space:nowrap; 
+	cursor:pointer;
+}
+.vs-option .vs-item-hover {
+	background:#F1F1F1;
+} 
+.vs-option .vs-selected {
+	background:#DDE8F6 !important;
+}
+.vs-hover {
+	border-color:#959595;
+	background-color:#F7F7F7;
+}
+.vs-focus {
+	border-color:#959595;
+	background:#E7E7E7 !important;
+}
+.vs-disabled .vs-text {
+	color:#999;
+	text-shadow:1px 1px 1px #FFF;
+}
+.vs-disabled .vs-icon {
+	background-image:url(src/arrow-disabled.gif);
+}
+.vs-select .vs-text,
+.vs-option .vs-item {
+	font-size:12px;
+	font-weight:normal;
+	font-family:"Microsoft YaHei","\5B8B\4F53";
+}
+.vs-block,
+.vs-block .vs-item {
+	float:none !important;
+	display:block !important;
+}
+/***************************************************************************/
+/***************************************************************************/
+/***************************************************************************/
+/***************************************************************************/
+.vm-select {
+	float:left;
+	display:inline;
+	overflow:hidden;
+
+	margin:0;
+	padding:0;
+	border:1px solid #CACACA;
+	border-radius:2px;
+	background-color:#FFF;
+	outline:none;
+	cursor:pointer;
+	transition:0.3s ease;
+	-o-transition:0.3s ease;
+	-webkit-transition:0.3s ease;
+}
+.vm-select .vm-option {
+	float: left;
+	display: inline;
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+.vm-select .vm-item {
+	float: left;
+	display: inline;
+	clear:both;
+	height:20px;
+	padding:2px 10px 2px 30px;
+	margin:0;
+	border:none;
+	line-height:20px;
+	white-space:nowrap; 
+	cursor:pointer;
+	background: url(src/checkbox.gif) no-repeat 5px -25px;
+	
+}
+.vm-select .vm-selected {
+	background-color: #F1F1F1 ;
+	background-position: 5px 5px;
+}
+.vm-hover {
+	border-color:#959595;
+}
+.vm-focus {
+	border-color:#959595;
+
+}
+
+.vm-select .vm-item-hover {
+	background-color:#F1F1F1;
+}
+.vm-select .vm-selected {
+	background-color: #DDE8F6;
+
+}
+.vm-disabled {
+	
+}
+.vm-disabled .vm-item {
+	color:#999;
+	text-shadow:1px 1px 1px #FFF;
+	background-image: url(src/checkbox-disabled.gif);
+}
+
+.vm-block,
+.vm-block .vm-item {
+	float:none !important;
+	display:block !important;
+}
